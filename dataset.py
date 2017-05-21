@@ -167,3 +167,8 @@ class Dataset:
     def train_img_size(self):
         width, height = Image.open(self.images_train[self.train_ptr]).size
         return height, width
+
+    def reset_iter(self):
+        self.test_ptr = 0
+        self.train_ptr = 0
+

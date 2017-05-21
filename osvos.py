@@ -530,9 +530,11 @@ def _train(dataset, initial_ckpt, supervison, learning_rate, logs_path, max_trai
                 # init_weights(sess)
                 var_list = []
                 for var in tf.global_variables():
+                    net_type = var.name.split('/')[0]
                     var_type = var.name.split('/')[-1]
-                    if 'weights' in var_type or 'bias' in var_type:
+                    if ('weights' in var_type or 'bias' in var_type) and not 'resnet_v1_101' in net_type:
                         var_list.append(var)
+                        # print(var.name)
                 saver_res = tf.train.Saver(var_list=var_list)
                 saver_res.restore(sess, initial_ckpt)
             step = 1
